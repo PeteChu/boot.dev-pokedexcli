@@ -5,8 +5,8 @@
     "parsableStyle": false,
     "fileSummary": true,
     "directoryStructure": true,
-    "removeComments": false,
-    "removeEmptyLines": false,
+    "removeComments": true,
+    "removeEmptyLines": true,
     "compress": false,
     "topFilesLength": 5,
     "showLineNumbers": false,
@@ -16,7 +16,7 @@
   "ignore": {
     "useGitignore": true,
     "useDefaultPatterns": true,
-    "customPatterns": []
+    "customPatterns": ["CLAUDE.md", "repomix.config.json"]
   },
   "security": {
     "enableSecurityCheck": true
