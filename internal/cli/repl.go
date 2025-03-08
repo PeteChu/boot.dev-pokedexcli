@@ -56,7 +56,7 @@ func StartRepl() {
 			break
 		}
 
-		input := cleanInput(scanner.Text())
+		input := CleanInput(scanner.Text())
 		if len(input) == 0 {
 			continue
 		}
@@ -80,8 +80,8 @@ func StartRepl() {
 	}
 }
 
-// cleanInput normalizes and splits user input
-func cleanInput(text string) []string {
+// CleanInput normalizes and splits user input
+func CleanInput(text string) []string {
 	return strings.Fields(
 		strings.ToLower(text),
 	)

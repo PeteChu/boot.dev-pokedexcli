@@ -45,3 +45,4 @@ dist/
 Thumbs.db
 
 output.txt
+.aider*

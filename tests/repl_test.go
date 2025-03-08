@@ -1,6 +1,7 @@
-package main
+package tests
 
 import (
+	"pokedexcli/internal/cli"
 	"testing"
 )
 
@@ -16,7 +17,7 @@ func TestCleanInput(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		actual := cleanInput(c.input)
+		actual := cli.CleanInput(c.input)
 		for i := range c.expected {
 			want := c.expected[i]
 			got := actual[i]
