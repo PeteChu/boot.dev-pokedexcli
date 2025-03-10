@@ -16,8 +16,9 @@ func StartRepl() {
 	defer cache.Stop()
 
 	app := &App{
-		Client: pokeapi.NewClient(),
-		Cache:  cache,
+		Client:  pokeapi.NewClient(),
+		Cache:   cache,
+		Pokedex: make(map[string]Pokemon),
 	}
 
 	app.Commands = map[string]Command{
@@ -45,6 +46,11 @@ func StartRepl() {
 			Name:        "explore",
 			Description: "List all the Pokémon located in the provided area",
 			Callback:    CommandExplore,
+		},
+		"catch": {
+			Name:        "catch",
+			Description: "Catch a Pokémon and add them to your Pokedex",
+			Callback:    CommandCatch,
 		},
 	}
 

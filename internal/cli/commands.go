@@ -3,6 +3,8 @@ package cli
 import (
 	"encoding/json"
 	"fmt"
+	"math"
+	"math/rand"
 	"pokedexcli/internal/api/pokeapi"
 )
 
@@ -113,5 +115,37 @@ func CommandExplore(app *App, args ...string) error {
 		fmt.Println(pokemon.Pokemon.Name)
 	}
 
+	return nil
+}
+
+func CommandCatch(app *App, args ...string) error {
+	if len(args) < 1 {
+		return fmt.Errorf("what pokemon you want to catch?")
+	}
+	name := args[0]
+	fmt.Printf("Throwing a Pokeball at %s...\n", name)
+
+	pokemon, err := app.Client.GetPokemonDetail(name)
+	if err != nil {
+		return err
+	}
+
+	// Calculate catch threshold - normalize it to ensure it's between 0 and 90
+	// This ensures even high base experience Pokémon can be caught
+	threshold := math.Min(90, float64(pokemon.BaseExperience)/3)
+
+	// Random attempt value between 0 and 100
+	catchAttempt := rand.Intn(100)
+
+	fmt.Printf("Attempting to catch... (Difficulty: %.1f, Attempt: %d)\n", threshold, catchAttempt)
+
+	// Determine if catch was successful
+	if float64(catchAttempt) >= threshold {
+		fmt.Printf("Caught %s!\n", name)
+		// Add pokemon to collection
+		app.Pokedex[pokemon.Name] = Pokemon{pokemon.Name}
+	} else {
+		fmt.Printf("%s escaped!\n", name)
+	}
 	return nil
 }

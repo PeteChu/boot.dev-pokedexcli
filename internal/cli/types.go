@@ -16,10 +16,15 @@ type Command struct {
 	Callback    func(app *App, args ...string) error
 }
 
+type Pokemon struct {
+	Name string
+}
+
 // App holds the application state
 type App struct {
 	Client    *pokeapi.Client
 	Cache     *pokecache.Cache
 	Locations pokeapi.LocationResponse
 	Commands  map[string]Command
+	Pokedex   map[string]Pokemon
 }

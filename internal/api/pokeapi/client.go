@@ -81,3 +81,30 @@ func (c *Client) ExploreArea(areaName string) (AreaResponse, error) {
 
 	return area, nil
 }
+
+func (c *Client) GetPokemonDetail(name string) (PokemonResponse, error) {
+	url := fmt.Sprintf("%s/pokemon/%s", c.baseURL, name)
+
+	resp, err := c.httpClient.Get(url)
+	if err != nil {
+		return PokemonResponse{}, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return PokemonResponse{}, fmt.Errorf("pokemon not found: %s", name)
+	}
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return PokemonResponse{}, err
+	}
+
+	var pokemon PokemonResponse
+	err = json.Unmarshal(data, &pokemon)
+	if err != nil {
+		return PokemonResponse{}, err
+	}
+
+	return pokemon, nil
+}
