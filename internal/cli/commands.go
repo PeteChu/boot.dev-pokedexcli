@@ -143,9 +143,40 @@ func CommandCatch(app *App, args ...string) error {
 	if float64(catchAttempt) >= threshold {
 		fmt.Printf("Caught %s!\n", name)
 		// Add pokemon to collection
-		app.Pokedex[pokemon.Name] = Pokemon{pokemon.Name}
+		app.Pokedex[pokemon.Name] = Pokemon{
+			Name:   pokemon.Name,
+			Height: pokemon.Height,
+			Weight: pokemon.Weight,
+			Stats:  pokemon.Stats,
+			Types:  pokemon.Types,
+		}
 	} else {
 		fmt.Printf("%s escaped!\n", name)
+	}
+	return nil
+}
+
+func CommandInspect(app *App, args ...string) error {
+	if len(args) < 1 {
+		return fmt.Errorf("please input name of the pokemon to inspect")
+	}
+
+	name := args[0]
+	pokemon, ok := app.Pokedex[name]
+	if !ok {
+		return fmt.Errorf("i don't think you catch this pokemon, come back when you caught it")
+	}
+
+	fmt.Printf("Name: %s\n", pokemon.Name)
+	fmt.Printf("Height: %d\n", pokemon.Height)
+	fmt.Printf("Weight: %d\n", pokemon.Weight)
+	fmt.Println("Stats:")
+	for _, stat := range pokemon.Stats {
+		fmt.Printf("  -%s: %d\n", stat.Stat.Name, stat.BaseStat)
+	}
+	fmt.Println("Types:")
+	for _, t := range pokemon.Types {
+		fmt.Printf("  - %s\n", t.Type.Name)
 	}
 	return nil
 }

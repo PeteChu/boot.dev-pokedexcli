@@ -52,6 +52,11 @@ func StartRepl() {
 			Description: "Catch a Pokémon and add them to your Pokedex",
 			Callback:    CommandCatch,
 		},
+		"inspect": {
+			Name:        "inspect",
+			Description: "Inspect a Pokémon for name, height, weight, stags and type(s)",
+			Callback:    CommandInspect,
+		},
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -81,7 +86,7 @@ func StartRepl() {
 			fmt.Println(err.Error())
 			os.Exit(0)
 		} else if err != nil {
-			fmt.Printf("Error: %s\n", err)
+			fmt.Println(err.Error())
 		}
 	}
 }
