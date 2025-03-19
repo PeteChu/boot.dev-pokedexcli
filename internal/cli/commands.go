@@ -180,3 +180,12 @@ func CommandInspect(app *App, args ...string) error {
 	}
 	return nil
 }
+
+func CommandPokedex(app *App, args ...string) error {
+	fmt.Printf("Your Pokedex:\n")
+	for _, pokemon := range app.Pokedex {
+		fmt.Printf("  - %s\n", pokemon.Name)
+	}
+
+	return nil
+}

@@ -57,6 +57,11 @@ func StartRepl() {
 			Description: "Inspect a Pokémon for name, height, weight, stags and type(s)",
 			Callback:    CommandInspect,
 		},
+		"pokedex": {
+			Name:        "pokedex",
+			Description: "List all caught pokemon",
+			Callback:    CommandPokedex,
+		},
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
